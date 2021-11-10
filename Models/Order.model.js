@@ -14,6 +14,19 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
+    review: {
+        type: {
+            raiting: {
+                type: Number,
+
+            },
+            comment: {
+                type: String,
+
+            },
+
+        }
+    }
 });
 
 const Order = mongoose.model('order', OrderSchema);
