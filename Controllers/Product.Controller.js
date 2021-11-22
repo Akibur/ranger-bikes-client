@@ -9,6 +9,7 @@ module.exports = {
             const results = await Product.find({});
             res.send(results);
         } catch (error) {
+            res.send(error.message);
             console.log(error.message);
         }
     },
@@ -16,7 +17,7 @@ module.exports = {
         try {
             const product = new Product(req.body);
             const result = await product.save();
-            res.send(result);
+            res.send("Product added successfully");
         } catch (error) {
             console.log(error.message);
             if (error.name === 'ValidationError') {
