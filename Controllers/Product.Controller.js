@@ -17,7 +17,7 @@ module.exports = {
         try {
             const product = new Product(req.body);
             const result = await product.save();
-            res.send("Product added successfully");
+            res.send({ message: "Product added successfully" });
         } catch (error) {
             console.log(error.message);
             if (error.name === 'ValidationError') {
