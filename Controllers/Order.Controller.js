@@ -8,6 +8,7 @@ const verifyToken = require('../utils/verifyToken');
 module.exports = {
     getAllOrders: async (req, res, next) => {
         try {
+            console.log(req.decodedEmail);
             if (req.decodedEmail) {
                 const results = await Order.find({});
                 res.send(results);
@@ -86,6 +87,7 @@ module.exports = {
 
     updateAOrder: async (req, res, next) => {
         try {
+            console.log("inside updare", req.decodedEmail);
             if (req.decodedEmail) {
                 const id = req.params.id;
                 const updates = req.body;
