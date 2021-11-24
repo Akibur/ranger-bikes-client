@@ -1,7 +1,7 @@
 const app = require("./server");
 
-const port = process.env.PORT || 5000;
 
+const port = process.env.PORT || 5000;
 // Initialize DB by runing the imported function
 require('./initDB')();
 

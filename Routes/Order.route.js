@@ -2,24 +2,25 @@ const express = require('express');
 const router = express.Router();
 
 const OrderController = require('../Controllers/Order.Controller');
+const verifyToken = require('../utils/verifyToken');
 
 //get a list of all orders
-router.get('/', OrderController.getAllOrders);
+router.get('/', verifyToken, OrderController.getAllOrders);
 
 //get a list of all orders by email
-router.post('/user', OrderController.getAllUserOrders);
+router.get('/user/:email', verifyToken, OrderController.getAllUserOrders);
 
 //Create a new order
-router.post('/', OrderController.createNewOrder);
+router.post('/', verifyToken, OrderController.createNewOrder);
 
 //Get a order by id
-router.get('/:id', OrderController.findOrderById);
+router.get('/:id', verifyToken, OrderController.findOrderById);
 
 //Update a order by id
-router.patch('/:id', OrderController.updateAOrder);
+router.patch('/:id', verifyToken, OrderController.updateAOrder);
 
 //Delete a order by id
-router.delete('/:id', OrderController.deleteAOrder);
+router.delete('/:id', verifyToken, OrderController.deleteAOrder);
 
 
 module.exports = router;
