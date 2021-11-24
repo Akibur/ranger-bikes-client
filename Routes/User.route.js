@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../utils/verifyToken');
+
 
 const UserController = require('../Controllers/User.Controller');
 
@@ -10,11 +12,9 @@ router.post('/', UserController.createNewUser);
 router.get('/:email', UserController.findUserByEmail);
 
 //Update a user by id
-router.patch('/:id', UserController.updateAUser);
+router.patch('/:id', verifyToken, UserController.updateAUser);
 
 //make admin
-router.patch('/', UserController.makeUserAnAdmin);
-
-
+router.patch('/', verifyToken, UserController.makeUserAnAdmin);
 
 module.exports = router;

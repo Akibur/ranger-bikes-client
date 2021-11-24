@@ -68,14 +68,20 @@ module.exports = {
     },
     makeUserAnAdmin: async (req, res, next) => {
         try {
-            const updates = req.body;
-            const options = { new: false };
+            if (req.decodedEmail) {
+                const updates = req.body;
+                const options = { new: false };
 
-            const result = await User.findOneAndUpdate({ email: updates.email }, { role: "admin" }, options);
-            if (!result) {
-                throw createError(404, 'User does not exist');
+                const result = await User.findOneAndUpdate({ email: updates.email }, { role: "admin" }, options);
+                if (!result) {
+                    throw createError(404, 'User does not exist');
+                }
+                res.send(result);
+            } else {
+                res.status(401).json({ message: "User not Authorized" });
+
             }
-            res.send(result);
+
         } catch (error) {
             console.log(error.message);
             if (error instanceof mongoose.CastError) {
