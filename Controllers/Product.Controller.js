@@ -14,10 +14,17 @@ module.exports = {
         }
     },
     createNewProduct: async (req, res, next) => {
+
         try {
-            const product = new Product(req.body);
-            const result = await product.save();
-            res.send({ message: "Product added successfully" });
+            if (req.decodedEmail) {
+                const product = new Product(req.body);
+                const result = await product.save();
+                res.send({ message: "Product added successfully" });
+            } else {
+                res.status(401).json({ message: "User not Authorized" });
+
+            }
+
         } catch (error) {
             console.log(error.message);
             if (error.name === 'ValidationError') {
@@ -66,15 +73,21 @@ module.exports = {
 
     updateAProduct: async (req, res, next) => {
         try {
-            const id = req.params.id;
-            const updates = req.body;
-            const options = { new: true };
+            if (req.decodedEmail) {
+                const id = req.params.id;
+                const updates = req.body;
+                const options = { new: true };
+                const result = await Product.findByIdAndUpdate(id, updates, options);
+                if (!result) {
+                    throw createError(404, 'Product does not exist');
+                }
+                res.send(result);
 
-            const result = await Product.findByIdAndUpdate(id, updates, options);
-            if (!result) {
-                throw createError(404, 'Product does not exist');
+            } else {
+                res.status(401).json({ message: "User not Authorized" });
+
             }
-            res.send(result);
+
         } catch (error) {
             console.log(error.message);
             if (error instanceof mongoose.CastError) {
@@ -88,11 +101,17 @@ module.exports = {
     deleteAProduct: async (req, res, next) => {
         const id = req.params.id;
         try {
-            const result = await Product.findByIdAndDelete(id);
-            if (!result) {
-                throw createError(404, 'Product does not exist.');
+            if (req.decodedEmail) {
+                const result = await Product.findByIdAndDelete(id);
+                if (!result) {
+                    throw createError(404, 'Product does not exist.');
+                }
+                res.send(result);
+
+            } else {
+                res.status(401).json({ message: "User not Authorized" });
+
             }
-            res.send(result);
         } catch (error) {
             console.log(error.message);
             if (error instanceof mongoose.CastError) {
