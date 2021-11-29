@@ -2,6 +2,12 @@
 
 This is the client side of the Rangers Bikes site where users can view and order custom bikes.
 
+- Admin Login
+  email - admin@admin.com
+  user - 123456
+
+- Live site- https://rangers-bikes.firebaseapp.com/
+
 # Server Side Tech
 
 The Server side made using Express and MongoDB. The MVC patter has been follow on the backend
