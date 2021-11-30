@@ -1,7 +1,8 @@
 # Rangers Bikes
 
 This is the client side of the Rangers Bikes site where users can view and order custom bikes.
-Admin Login – User -admin@admin.com, pass-123456
+
+- Admin Login: User -admin@admin.com, pass-123456
 
 - Live site- https://rangers-bikes.firebaseapp.com/
 
